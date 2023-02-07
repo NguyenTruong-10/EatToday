@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentLoginBinding;
 
@@ -33,11 +34,12 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Callback callback;
     private FragmentLoginBinding loginBinding;
-s
-    public interface Callback{
+
+    public interface Callback {
         void onSignIn();
+
         void notRegisterSignUp();
-    };
+    }
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -80,7 +82,7 @@ s
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void replaceFragment (Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -115,7 +117,7 @@ s
                             }
                         } else {
                             //Sign in fails, display a message to the user
-                            Log.e(SIGN_IN_METHOD, "signInWithE&P:failure",task.getException());
+                            Log.e(SIGN_IN_METHOD, "signInWithE&P:failure", task.getException());
                             Toast.makeText(getContext(), "Authentication failed check email and password again",
                                     Toast.LENGTH_SHORT).show();
                         }

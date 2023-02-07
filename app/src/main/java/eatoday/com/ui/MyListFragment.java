@@ -45,17 +45,20 @@ public class MyListFragment extends Fragment {
     private String user;
     private Callback callback;
     private Toolbar toolbar_all;
-    public interface Callback{
+
+    public interface Callback {
         void onBackProfile();
     }
-    public void setCallback(Callback callback){
+
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.fragment_my_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_list, container, false);
         recyclerView = view.findViewById(R.id.rclist_edit);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList = new ArrayList<>();
@@ -74,14 +77,14 @@ public class MyListFragment extends Fragment {
         }
     }
 
-    private void getListFoodFromRealtime(){
+    private void getListFoodFromRealtime() {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser().getUid();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("datas").child(user);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Food food = dataSnapshot.getValue(Food.class);
                     mList.add(food);
                 }
@@ -90,7 +93,7 @@ public class MyListFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
             }
         });
     }

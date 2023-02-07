@@ -109,20 +109,19 @@ public class AccountFragment extends Fragment {
         String userName = accountBinding.edtUserName.getText().toString();
 
         if (!validateForm(accountBinding.edtFirstName) ||
-            !validateForm(accountBinding.edtLastName) ||
-            !validateForm(accountBinding.edtDayBirthdate) ||
-            !validateForm(accountBinding.edtMonthBirthdate) ||
-            !validateForm(accountBinding.edtYearBirthdate) ||
-            !validateForm(accountBinding.edtUserName))
-        {
+                !validateForm(accountBinding.edtLastName) ||
+                !validateForm(accountBinding.edtDayBirthdate) ||
+                !validateForm(accountBinding.edtMonthBirthdate) ||
+                !validateForm(accountBinding.edtYearBirthdate) ||
+                !validateForm(accountBinding.edtUserName)) {
             return;
         }
         updateUserInfo(firstName, lastName, day, month, year, userName);
     }
 
     private void updateUserInfo(String firstName, String lastName,
-                               String day, String month,
-                               String year, String userName) {
+                                String day, String month,
+                                String year, String userName) {
         Map<String, String> birthDate = new HashMap<>();
         Map<String, Object> user = new HashMap<>();
         user.put("firstName", firstName);
@@ -167,7 +166,7 @@ public class AccountFragment extends Fragment {
         boolean valid = true;
 
         String dataOfEdittext = editText.getText().toString();
-        if( TextUtils.isEmpty(dataOfEdittext)) {
+        if (TextUtils.isEmpty(dataOfEdittext)) {
             editText.setError("Required");
             valid = false;
         } else {

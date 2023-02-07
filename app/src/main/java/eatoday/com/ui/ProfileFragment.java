@@ -33,25 +33,28 @@ public class ProfileFragment extends Fragment {
     private MyPostFragment myPostFragment = new MyPostFragment();
     private FragmentProfilesBinding profilesBinding;
     private Callback callback;
-    
+
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private ValueEventListener userEventListener;
-    
+
     private static final String RELOAD_INFO = "Reload profiles info";
     private static final String EVENT_USER_LISTENER = "Event user listener";
-    
-    public interface Callback{
+
+    public interface Callback {
         void onClickFood();
+
         void onClickUser();
+
         void onLogOut();
 
         void onClickList();
     }
-    public void setCallback(Callback callback){
+
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,24 +67,24 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profilesBinding.btnChangeuser.setOnClickListener(v -> {
-            if(callback != null){
+            if (callback != null) {
                 callback.onClickUser();
             }
         });
 
         profilesBinding.btnFoods.setOnClickListener(v -> {
-            if(callback != null){
+            if (callback != null) {
                 callback.onClickFood();
             }
         });
         profilesBinding.btnList.setOnClickListener(v -> {
-            if(callback != null){
+            if (callback != null) {
                 callback.onClickList();
             }
         });
 
         profilesBinding.btnLogout.setOnClickListener(v -> {
-            if(callback != null){
+            if (callback != null) {
                 mAuth.signOut();
                 Toast.makeText(getContext(),
                         "Đăng xuất",

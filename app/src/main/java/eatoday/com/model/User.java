@@ -11,10 +11,11 @@ public class User {
     private String email;
     private Birthdate birthdate;
 
-    public User(){
+    public User() {
 
     }
-    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate ) {
+
+    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;

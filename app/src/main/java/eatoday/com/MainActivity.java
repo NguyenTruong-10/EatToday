@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private HomeFragment homeFragment = new HomeFragment();
     private NotificationFragment notificationFragment = new NotificationFragment();
-//    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
+    //    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
     private MyListFragment myListFragment = new MyListFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private MyPostFragment myPostFragment = new MyPostFragment();
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //getting Root View that gets focus
-        View rootView =((ViewGroup)findViewById(android.R.id.content)).
+        View rootView = ((ViewGroup) findViewById(android.R.id.content)).
                 getChildAt(0);
         rootView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLogOut() { logOut(); }
+            public void onLogOut() {
+                logOut();
+            }
 
             @Override
             public void onClickList() {
@@ -157,29 +160,34 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //call super
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     public static void hideKeyboard(Activity context) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
     }
+
     public void openMyPostFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, myPostFragment).addToBackStack(null).commit();
     }
+
     public void openAccountFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, accountFragment).addToBackStack(null).commit();
     }
+
     public void openMylistFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myListFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, myListFragment).addToBackStack(null).commit();
     }
 
 
@@ -192,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment (Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(
                 R.anim.slide_in,  // enter
                 R.anim.fade_out,  // exit
                 R.anim.fade_in,   // popEnter
@@ -203,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     }
+
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -211,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(RELOAD, "Success");
                     updateUI(mAuth.getCurrentUser());
                 } else {
-                    Log.e(RELOAD,"Error 404",task.getException());
+                    Log.e(RELOAD, "Error 404", task.getException());
                     Toast.makeText(getApplicationContext(),
                             "Failed to reload user",
                             Toast.LENGTH_SHORT).show();
@@ -220,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //reload user information - Testing only
     }
+
     private void updateUI(FirebaseUser user) {
         //user log out
         if (user != null) {

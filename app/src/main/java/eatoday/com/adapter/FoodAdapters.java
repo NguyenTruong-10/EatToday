@@ -1,4 +1,5 @@
 package eatoday.com.adapter;
+
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -34,9 +37,11 @@ import eatoday.com.ui.Detail_Food_Fragment;
 
 public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewholder> {
     private List<Food> mlist;
+
     public FoodAdapters(List<Food> mlist) {
         this.mlist = mlist;
     }
+
     @NonNull
     @Override
     public FoodViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,7 +52,7 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
     @Override
     public void onBindViewHolder(@NonNull FoodAdapters.FoodViewholder holder, int position) {
         Food food = mlist.get(position);
-        if(food == null){
+        if (food == null) {
             return;
         }
         holder.nameFood.setText(food.getFoodName());
@@ -59,25 +64,27 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
         holder.imgFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity=(AppCompatActivity)view.getContext();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frameLayout,
-                                new Detail_Food_Fragment(food.getFoodName(),food.getDescrible(),food.getIngredient(),food.getLinkVideo(),food.getFoodImage())).addToBackStack(null).commit();
+                                new Detail_Food_Fragment(food.getFoodName(), food.getDescrible(), food.getIngredient(), food.getLinkVideo(), food.getFoodImage())).addToBackStack(null).commit();
             }
         });
     }
+
     @Override
     public int getItemCount() {
-        if(mlist !=null){
+        if (mlist != null) {
             return mlist.size();
         }
         return 0;
     }
+
     public class FoodViewholder extends RecyclerView.ViewHolder {
         private TextView nameFood;
         private ImageView imgFood;
-        public FoodViewholder(@NonNull View itemView)
-        {
+
+        public FoodViewholder(@NonNull View itemView) {
             super(itemView);
             nameFood = itemView.findViewById(R.id.tvCategory);
             imgFood = itemView.findViewById(R.id.imgCategory);

@@ -41,6 +41,7 @@ public class SignUpFragment extends Fragment {
 
     public interface Callback {
         void onSignUp();
+
         void alreadyRegistered();
     }
 
@@ -80,14 +81,13 @@ public class SignUpFragment extends Fragment {
 
     private void createNewAccount(String email, String password) {
         if (!validateForm(signUpBinding.edtFirstName) ||
-            !validateForm(signUpBinding.edtLastName) ||
-            !validateForm(signUpBinding.dayOfBirthDate) ||
-            !validateForm(signUpBinding.monthOfBirthDate) ||
-            !validateForm(signUpBinding.yearOfBirthDate) ||
-            !validateForm(signUpBinding.edtEmailAddress) ||
-            !validateForm(signUpBinding.edtPassword) ||
-            !validateForm(signUpBinding.edtReEnterPassword))
-        {
+                !validateForm(signUpBinding.edtLastName) ||
+                !validateForm(signUpBinding.dayOfBirthDate) ||
+                !validateForm(signUpBinding.monthOfBirthDate) ||
+                !validateForm(signUpBinding.yearOfBirthDate) ||
+                !validateForm(signUpBinding.edtEmailAddress) ||
+                !validateForm(signUpBinding.edtPassword) ||
+                !validateForm(signUpBinding.edtReEnterPassword)) {
             return;
         }
 
@@ -162,12 +162,12 @@ public class SignUpFragment extends Fragment {
         boolean valid = true;
 
         String dataOfEdittext = editText.getText().toString();
-            if( TextUtils.isEmpty(dataOfEdittext)) {
-                editText.setError("Required");
-                valid = false;
-            } else {
-                editText.setError(null);
-            }
+        if (TextUtils.isEmpty(dataOfEdittext)) {
+            editText.setError("Required");
+            valid = false;
+        } else {
+            editText.setError(null);
+        }
         return valid;
     }
 
