@@ -2,12 +2,15 @@ package eatoday.com.adapter;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +61,7 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgEditFood);
+
     }
 
     @Override
@@ -71,12 +75,14 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
     public class EditViewholder extends RecyclerView.ViewHolder {
         private TextView nameEditFood;
         private ImageView imgEditFood;
+        private ImageButton imgBtnDelete;
 
         public EditViewholder(@NonNull View itemView) {
             super(itemView);
             nameEditFood = itemView.findViewById(R.id.tvFood);
             imgEditFood = itemView.findViewById(R.id.imgVFood);
-//            Log.e(TAG, "PPPPP" + nameFood);
+            imgBtnDelete = itemView.findViewById(R.id.ic_delete);
+
         }
     }
 }
