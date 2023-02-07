@@ -27,25 +27,29 @@ import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.ChangePasswordFragment;
 import eatoday.com.ui.Detail_Food_Fragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
 import eatoday.com.ui.MyPostFragment;
 import eatoday.com.ui.NotificationFragment;
 import eatoday.com.ui.ProfileFragment;
+import eatoday.com.ui.ReAuthenticateUserFragment;
 
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private HomeFragment homeFragment = new HomeFragment();
     private NotificationFragment notificationFragment = new NotificationFragment();
-//    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
+    //    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
     private MyListFragment myListFragment = new MyListFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private MyPostFragment myPostFragment = new MyPostFragment();
     private AccountFragment accountFragment = new AccountFragment();
     private LoginFragment loginFragment = new LoginFragment();
     private SignUpFragment signUpFragment = new SignUpFragment();
+    private ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+    private ReAuthenticateUserFragment reAuthenticateUserFragment = new ReAuthenticateUserFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //getting Root View that gets focus
-        View rootView =((ViewGroup)findViewById(android.R.id.content)).
+        View rootView = ((ViewGroup) findViewById(android.R.id.content)).
                 getChildAt(0);
         rootView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClickList() {
                 openMylistFragment();
             }
+
+            @Override
+            public void onClickChangePassword() {
+                replaceFragment(reAuthenticateUserFragment);
+            }
         });
         myPostFragment.setCallback(() -> replaceFragment(profileFragment));
         loginFragment.setCallback(new LoginFragment.Callback() {
@@ -124,32 +134,34 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(loginFragment);
             }
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    /*private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        accountFragment.setCallback(new AccountFragment.Callback() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(ANONYMOUS, "signInAnonymously:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-//                    updateUI(user);
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(ANONYMOUS, "signInAnonymously:failure", task.getException());
-                    Toast.makeText(getApplicationContext(), "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
-                    //updateUI(null);
-                }
+            public void onConfirmUpdate() {
+                replaceFragment(profileFragment);
             }
         });
-    }*/
+
+        changePasswordFragment.setCallback(new ChangePasswordFragment.Callback() {
+            @Override
+            public void onConfirmChangePass() { replaceFragment(profileFragment); }
+        });
+        reAuthenticateUserFragment.setCallback(new ReAuthenticateUserFragment.Callback() {
+            @Override
+            public void onContinue() {
+                replaceFragment(changePasswordFragment);
+            }
+        });
+    }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            reload();
+//        }
+//    }
 
     private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -166,29 +178,34 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //call super
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     public static void hideKeyboard(Activity context) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
     }
+
     public void openMyPostFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, myPostFragment).addToBackStack(null).commit();
     }
+
     public void openAccountFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, accountFragment).addToBackStack(null).commit();
     }
+
     public void openMylistFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myListFragment).addToBackStack(null).commit();
+        fragmentTransaction5.replace(R.id.frameLayout, myListFragment).addToBackStack(null).commit();
     }
 
 
@@ -201,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment (Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(
                 R.anim.slide_in,  // enter
                 R.anim.fade_out,  // exit
                 R.anim.fade_in,   // popEnter
@@ -212,21 +229,25 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     }
+
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.e(RELOAD, "Success");
+                    updateUI(mAuth.getCurrentUser());
                 } else {
-                    Log.e(RELOAD,"Error 404",task.getException());
+                    Log.e(RELOAD, "Error 404", task.getException());
                     Toast.makeText(getApplicationContext(),
                             "Failed to reload user",
                             Toast.LENGTH_SHORT).show();
+                    updateUI(null);
                 }
             }
         }); //reload user information - Testing only
     }
+
     private void updateUI(FirebaseUser user) {
         //user log out
         if (user != null) {

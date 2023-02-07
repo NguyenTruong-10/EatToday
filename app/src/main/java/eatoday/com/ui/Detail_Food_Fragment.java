@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+
 import com.bumptech.glide.Glide;
+
 import eatoday.com.R;
 import eatoday.com.model.Food;
 
@@ -35,19 +37,21 @@ public class Detail_Food_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String nameFood, desFood, ingre, linkVideo,imgFood,a;
+    String nameFood, desFood, ingre, linkVideo, imgFood, a;
     Food food;
     private Toolbar toolbar;
     private Button btnLink;
+
     public Detail_Food_Fragment() {
 
     }
-    public Detail_Food_Fragment(String nameFood, String desFood, String ingre, String linkVideo,String imgFood) {
-        this.nameFood=nameFood;
-        this.desFood=desFood;
-        this.ingre=ingre;
-        this.linkVideo=linkVideo;
-        this.imgFood=imgFood;
+
+    public Detail_Food_Fragment(String nameFood, String desFood, String ingre, String linkVideo, String imgFood) {
+        this.nameFood = nameFood;
+        this.desFood = desFood;
+        this.ingre = ingre;
+        this.linkVideo = linkVideo;
+        this.imgFood = imgFood;
     }
 
     public static Detail_Food_Fragment newInstance(String param1, String param2) {
@@ -58,6 +62,7 @@ public class Detail_Food_Fragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +76,11 @@ public class Detail_Food_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_detail__food, container, false);
-        ImageView imageholder=view.findViewById(R.id.imgThumb);
-        TextView nameholder=view.findViewById(R.id.tvTitle);
-        TextView desholder=view.findViewById(R.id.tvInstructions);
-        TextView inglholder=view.findViewById(R.id.tvIngredients);
+        View view = inflater.inflate(R.layout.fragment_detail__food, container, false);
+        ImageView imageholder = view.findViewById(R.id.imgThumb);
+        TextView nameholder = view.findViewById(R.id.tvTitle);
+        TextView desholder = view.findViewById(R.id.tvInstructions);
+        TextView inglholder = view.findViewById(R.id.tvIngredients);
         TextView linkVideoholder = view.findViewById(R.id.tvYoutube);
         nameholder.setText(nameFood);
         desholder.setText(desFood);
@@ -87,23 +92,23 @@ public class Detail_Food_Fragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         Log.v(TAG, "YOUTUEBNEEEEE=" + a);
-        linkVideoholder.setOnClickListener(v-> openWebPage(a) );
-        return  view;
-       // View view=inflater.inflate(R.layout.fragment_detail__food, container, false);
+        linkVideoholder.setOnClickListener(v -> openWebPage(a));
+        return view;
+        // View view=inflater.inflate(R.layout.fragment_detail__food, container, false);
     }
 
-          public void openWebPage(String url) {
-              Uri uriUrl = Uri.parse(url);
-              Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-              startActivity(launchBrowser);
-              Toast.makeText(getActivity(), url, LENGTH_SHORT).show();
+    public void openWebPage(String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+        Toast.makeText(getActivity(), url, LENGTH_SHORT).show();
 
-          }
+    }
 
 
     private void onBackPressed() {
-        AppCompatActivity activity=(AppCompatActivity)getContext();
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new HomeFragment()).addToBackStack(null).commit();
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeFragment()).addToBackStack(null).commit();
 
     }
 }

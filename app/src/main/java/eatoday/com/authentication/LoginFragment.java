@@ -7,7 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentLoginBinding;
 
@@ -34,10 +37,11 @@ public class LoginFragment extends Fragment {
     private Callback callback;
     private FragmentLoginBinding loginBinding;
 
-    public interface Callback{
+    public interface Callback {
         void onSignIn();
+
         void notRegisterSignUp();
-    };
+    }
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -75,12 +79,35 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        loginBinding.edtPasswordInfo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (loginBinding.edtPasswordInfo.length() != 0) {
+                    loginBinding.textInputLayout
+                            .setEndIconMode(loginBinding.textInputLayout.END_ICON_PASSWORD_TOGGLE);
+                } else {
+                    loginBinding.textInputLayout
+                            .setEndIconMode(loginBinding.textInputLayout.END_ICON_NONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void replaceFragment (Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -110,10 +137,12 @@ public class LoginFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                             if (callback != null) {
                                 callback.onSignIn();
+                                loginBinding.edtEmailInfo.setText("");
+                                loginBinding.edtPasswordInfo.setText("");
                             }
                         } else {
                             //Sign in fails, display a message to the user
-                            Log.e(SIGN_IN_METHOD, "signInWithE&P:failure",task.getException());
+                            Log.e(SIGN_IN_METHOD, "signInWithE&P:failure", task.getException());
                             Toast.makeText(getContext(), "Authentication failed check email and password again",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -134,6 +163,7 @@ public class LoginFragment extends Fragment {
         boolean valid = true;
 
         String email = loginBinding.edtEmailInfo.getText().toString();
+
         if (TextUtils.isEmpty(email)) {
             loginBinding.edtEmailInfo.setError("Required");
             valid = false;

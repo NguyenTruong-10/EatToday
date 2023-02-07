@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:fitsSystemWindows="true">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,115 +52,203 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:layout_marginTop="54dp"
                 android:background="@drawable/bg_radius_bottom_corner"
                 android:orientation="vertical">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="128dp"
-                    android:layout_height="128dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/img_ava" />
 
                 <TextView
                     android:id="@+id/txt_change_ava"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/font_outfit"
-                    android:text="Change avatar"
+                    android:fontFamily="@font/google_sans_bold"
+                    android:text="Cập nhật thông tin"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textFontWeight="1000"
+                    android:textFontWeight="450"
                     android:textSize="20dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_avatar"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/img_ava" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp">
 
-                <EditText
-                    android:layout_width="179dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="36dp"
-                    android:background="@drawable/custom_input"
-                    android:hint="First Name" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
 
-                <EditText
-                    android:layout_width="134dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/custom_input"
-                    android:hint="Last Name" />
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Tên:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Họ:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/edt_firstName"
+                            android:layout_width="110dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Tên"
+                            android:textSize="16sp"/>
+
+                        <EditText
+                            android:id="@+id/edt_lastName"
+                            android:layout_width="193dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Họ"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Ngày sinh:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Tháng sinh:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Năm sinh:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/edt_dayBirthdate"
+                            android:layout_width="90dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Ngày"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/edt_monthBirthdate"
+                            android:layout_width="90dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="16dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Tháng"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/edt_yearBirthdate"
+                            android:layout_width="106dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="16dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Năm"
+                            android:textSize="16sp" />
+                    </TableRow>
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/google_sans_bold"
+                            android:paddingStart="5dp"
+                            android:text="Username:"
+                            android:textColor="@color/black"
+                            android:textFontWeight="450"
+                            android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/edt_userName"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/custom_input"
+                            android:hint="Nhập username"
+                            android:textSize="16sp"/>
+                </TableLayout>
+
             </LinearLayout>
 
-            <TableLayout
+            <Button
+                android:id="@+id/btn_update"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-
-                <TableRow>
-
-                    <EditText
-                        android:layout_width="90dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="36dp"
-                        android:background="@drawable/custom_input"
-                        android:hint="DD" />
-
-                    <EditText
-                        android:layout_width="90dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/custom_input"
-                        android:hint="MM" />
-
-                    <EditText
-                        android:layout_width="116dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/custom_input"
-                        android:hint="YYYYY" />
-                </TableRow>
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="0,1">
-
-                <EditText
-                    android:layout_width="328dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="36dp"
-                    android:background="@drawable/custom_input"
-                    android:hint="Enter email address" />
-
-                <Button
-                    android:layout_width="328dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="36dp"
-                    android:background="@drawable/bg_button"
-                    android:fontFamily="@font/font_outfit_bold"
-                    android:text="Update"
-                    android:textFontWeight="400"
-                    android:textSize="18dp" />
-
-            </TableLayout>
-
+                android:layout_height="48dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="36dp"
+                android:background="@drawable/bg_button"
+                android:fontFamily="sans-serif-light"
+                android:text="Xác nhận"
+                android:textFontWeight="800"
+                android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
 

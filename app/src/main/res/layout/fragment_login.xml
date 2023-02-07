@@ -35,7 +35,7 @@
                         android:layout_gravity="center_vertical"
                         android:drawableRight="@drawable/ic_person"
                         android:drawablePadding="10dp"
-                        android:fontFamily="@font/font_outfit_bold"
+                        android:fontFamily="@font/google_sans_bold"
                         android:text="Login Account"
                         android:textColor="@color/black"
                         android:textSize="24dp" />
@@ -53,8 +53,7 @@
                 android:layout_width="142dp"
                 android:layout_height="142dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_logo_app"
 
                 />
@@ -64,45 +63,80 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enter your email"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="13dp"
-                    android:layout_marginStart="40dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edt_email_info"
-                    android:layout_width="338dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginEnd="36dp"
-                    android:background="@drawable/custom_input" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Enter your password"
-                    android:textSize="20dp"
+                    android:text="Use your Eatoday Account"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Address:"
+                    android:textSize="16dp"
+                    android:textColor="@color/dimgray"
+                    android:fontFamily="@font/google_sans_regular"
                     android:layout_marginStart="40dp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
-                <com.google.android.material.textfield.TextInputLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true">
-                    <EditText
-                        android:id="@+id/edt_password_info"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_email_info"
                         android:layout_width="338dp"
-                        android:layout_height="48dp"
+                        android:layout_height="40dp"
                         android:layout_marginStart="36dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginEnd="36dp"
                         android:background="@drawable/custom_input"
-                        android:inputType="textPassword" />
+                        android:hint="Enter your email"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textSize="16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Enter password:"
+                    android:textColor="@color/dimgray"
+                    android:textSize="16dp"
+                    android:textStyle="normal" />
+
+                <com.google.android.material.textfield.TextInputLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="false"
+                    app:hintEnabled="false"
+                    app:hintTextColor="@color/black"
+                    android:id="@+id/textInputLayout">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_password_info"
+                        android:layout_width="338dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginEnd="36dp"
+                        android:hint="Password"
+                        android:textSize="16dp"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:background="@drawable/custom_input"
+                        android:inputType="textPassword"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -116,6 +150,7 @@
                 android:layout_marginEnd="36dp"
                 android:text="Forgot password?"
                 android:textAppearance="@style/by_clicking"
+                android:fontFamily="@font/google_sans_bold"
                 android:textFontWeight="400"
                 android:textSize="13sp" />
 
@@ -127,7 +162,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="36dp"
                 android:background="@drawable/bg_button"
-                android:fontFamily="@font/font_outfit_bold"
+                android:fontFamily="@font/google_sans_bold"
                 android:text="Log In"
                 android:textFontWeight="400"
                 android:textSize="18dp" />
@@ -141,6 +176,7 @@
                 android:layout_marginEnd="104dp"
                 android:text="Or log in with"
                 android:textAppearance="@style/by_clicking"
+                android:fontFamily="@font/google_sans_regular"
                 android:textFontWeight="400" />
 
             <LinearLayout
@@ -173,7 +209,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -181,6 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/google_sans_regular"
                     android:text="Not register ?"
                     android:textSize="17dp" />
 
@@ -189,6 +226,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:fontFamily="@font/google_sans_bold"
                     android:text="Sign up" />
             </LinearLayout>
         </LinearLayout>

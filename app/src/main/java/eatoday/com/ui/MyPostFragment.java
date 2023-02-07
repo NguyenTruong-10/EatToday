@@ -78,12 +78,15 @@ public class MyPostFragment extends Fragment {
     private Date date = new Date();
     private String idfood = getRandomString(3) + formatter.format(date);
     private Callback callback;
-    public interface Callback{
+
+    public interface Callback {
         void onBack();
     }
-    public void setCallback(Callback callback){
+
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,14 +236,14 @@ public class MyPostFragment extends Fragment {
     private void setToFireStorage(Uri imageUri) {
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
         Date date = new Date();
-        final String fileName =  getRandomString(4) + format.format(date);
+        final String fileName = getRandomString(4) + format.format(date);
         if (imageUri != null) {
             StorageReference str = storage.getReference();
             str.child("profileImage").child(fileName).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
                 str.child("profileImage").child(fileName).getDownloadUrl().addOnSuccessListener(DownloadUri -> {
-                    FirebaseDatabase database = firebaseDatabase;
+//                    FirebaseDatabase database = firebaseDatabase;
                     DatabaseReference mref = databaseReference.child("foodImage");
-                    DatabaseReference mypost =firebaseDatabase.getReference("Foods").child("allData").child(idfood).child("foodImage");
+                    DatabaseReference mypost = firebaseDatabase.getReference("Foods").child("allData").child(idfood).child("foodImage");
                     mref.setValue(DownloadUri.toString());
                     mypost.setValue(DownloadUri.toString());
                     Toast.makeText(getActivity(), "Data updated", LENGTH_SHORT).show();

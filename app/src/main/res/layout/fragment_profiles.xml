@@ -47,14 +47,15 @@
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/font_outfit_bold"
                     android:text="Person"
+                    android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="24dp" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="210dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/ic_logo_app"
 
                     />
@@ -63,14 +64,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="200dp"
             android:background="@drawable/bg_radius_bottom_corner"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
@@ -81,12 +82,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/font_outfit"
-                android:text="Your Name"
+                android:fontFamily="sans-serif"
+                android:text="Null"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textFontWeight="1000"
-                android:textSize="20dp" />
+                android:textFontWeight="500"
+                android:textSize="19dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -123,7 +124,7 @@
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="12dp"
                     android:paddingStart="17dp"
-                    android:text="Change user"
+                    android:text="Update user info"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textSize="15dp" />

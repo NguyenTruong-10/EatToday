@@ -1,5 +1,6 @@
 package eatoday.com.authentication;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,15 +12,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import eatoday.com.databinding.FragmentSignUpBinding;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 import eatoday.com.R;
+import eatoday.com.databinding.FragmentSignUpBinding;
 
 public class SignUpFragment extends Fragment {
 
@@ -28,9 +34,14 @@ public class SignUpFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FragmentSignUpBinding signUpBinding;
     private Callback callback;
+    private DatabaseReference databaseReference;
+    // 10 tháng 10, 2002
+    private SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
+    Uri resultUriUser = Uri.parse("android.resource://com.example.chetan.printerprinting/" + R.drawable.ic_food_placeholder);
 
     public interface Callback {
         void onSignUp();
+
         void alreadyRegistered();
     }
 
@@ -51,14 +62,8 @@ public class SignUpFragment extends Fragment {
         //Button
 
         signUpBinding.btnSignUp.setOnClickListener(v -> {
-            String firstName = signUpBinding.edtFirstName.getText().toString();
-            String lastName = signUpBinding.edtLastName.getText().toString();
-            String dayOfBirthDate = signUpBinding.dayOfBirthDate.getText().toString();
-            String monthOfBirthDate = signUpBinding.monthOfBirthDate.getText().toString();
-            String yearOfBirthDate = signUpBinding.yearOfBirthDate.getText().toString();
             String emailAddress = signUpBinding.edtEmailAddress.getText().toString();
             String password = signUpBinding.edtPassword.getText().toString();
-            String reEnterPassword = signUpBinding.edtReEnterPassword.getText().toString();
 
             createNewAccount(emailAddress, password);
         });
@@ -71,10 +76,18 @@ public class SignUpFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     private void createNewAccount(String email, String password) {
-        if (!validateForm()) {
+        if (!validateForm(signUpBinding.edtFirstName) ||
+                !validateForm(signUpBinding.edtLastName) ||
+                !validateForm(signUpBinding.dayOfBirthDate) ||
+                !validateForm(signUpBinding.monthOfBirthDate) ||
+                !validateForm(signUpBinding.yearOfBirthDate) ||
+                !validateForm(signUpBinding.edtEmailAddress) ||
+                !validateForm(signUpBinding.edtPassword) ||
+                !validateForm(signUpBinding.edtReEnterPassword)) {
             return;
         }
 
@@ -84,7 +97,9 @@ public class SignUpFragment extends Fragment {
                         Log.d(SIGN_UP_METHOD, "createUserWithE&P:success");
                         if (callback != null) {
                             callback.onSignUp();
+                            onSignUpSuccess(task.getResult().getUser());
                         }
+
                     } else {
                         Log.d(SIGN_UP_METHOD, "createUserWithE&P:failure", task.getException());
                         Toast.makeText(getContext(),
@@ -94,65 +109,65 @@ public class SignUpFragment extends Fragment {
                 });
     }
 
-    private boolean validateForm() {
+    private void onSignUpSuccess(FirebaseUser user) {
+        String firstName = signUpBinding.edtFirstName.getText().toString();
+        String lastName = signUpBinding.edtLastName.getText().toString();
+        String dayOfBirthDate = signUpBinding.dayOfBirthDate.getText().toString();
+        String monthOfBirthDate = signUpBinding.monthOfBirthDate.getText().toString();
+        String yearOfBirthDate = signUpBinding.yearOfBirthDate.getText().toString();
+        String userName = userNameFromEmail(user.getEmail());
+
+        writeNewUser(user.getUid(), firstName,
+                lastName, dayOfBirthDate,
+                monthOfBirthDate, yearOfBirthDate,
+                userName, user.getEmail());
+    }
+
+    public void writeNewUser(String userId, String firstName,
+                             String lastName, String day,
+                             String month, String year,
+                             String userName, String email) {
+        Map<String, String> birthDate = new HashMap<>();
+        Map<String, Object> user = new HashMap<>();
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("userName", userName);
+        user.put("email", email);
+        birthDate.put("day", day);
+        birthDate.put("month", month);
+        birthDate.put("year", year);
+        user.put("birthdate", birthDate);
+
+        signUpBinding.edtFirstName.setText("");
+        signUpBinding.edtLastName.setText("");
+        signUpBinding.dayOfBirthDate.setText("");
+        signUpBinding.monthOfBirthDate.setText("");
+        signUpBinding.yearOfBirthDate.setText("");
+        signUpBinding.edtEmailAddress.setText("");
+        signUpBinding.edtPassword.setText("");
+        signUpBinding.edtReEnterPassword.setText("");
+
+        databaseReference.child("Users").child(userId).updateChildren(user);
+    }
+
+    private String userNameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
+    private boolean validateForm(EditText editText) {
         boolean valid = true;
 
-        String firstName = signUpBinding.edtFirstName.getText().toString();
-            if( TextUtils.isEmpty(firstName)) {
-                signUpBinding.edtFirstName.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.edtFirstName.setError(null);
-            }
-        String lastName = signUpBinding.edtLastName.getText().toString();
-            if( TextUtils.isEmpty(lastName)) {
-                signUpBinding.edtLastName.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.edtLastName.setError(null);
-            }
-        String dayOfBirthDate = signUpBinding.dayOfBirthDate.getText().toString();
-            if( TextUtils.isEmpty(dayOfBirthDate)) {
-                signUpBinding.dayOfBirthDate.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.dayOfBirthDate.setError(null);
-            }
-        String monthOfBirthDate = signUpBinding.monthOfBirthDate.getText().toString();
-            if( TextUtils.isEmpty(monthOfBirthDate)) {
-                signUpBinding.monthOfBirthDate.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.monthOfBirthDate.setError(null);
-            }
-        String yearOfBirthDate = signUpBinding.yearOfBirthDate.getText().toString();
-            if( TextUtils.isEmpty(yearOfBirthDate)) {
-                signUpBinding.yearOfBirthDate.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.yearOfBirthDate.setError(null);
-            }
-        String emailAddress = signUpBinding.edtEmailAddress.getText().toString();
-            if( TextUtils.isEmpty(emailAddress)) {
-                signUpBinding.edtEmailAddress.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.edtEmailAddress.setError(null);
-            }
-        String password = signUpBinding.edtPassword.getText().toString();
-            if( TextUtils.isEmpty(password)) {
-                signUpBinding.edtPassword.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.edtPassword.setError(null);
-            }
-        String reEnterPassword = signUpBinding.edtReEnterPassword.getText().toString();
-            if( TextUtils.isEmpty(reEnterPassword)) {
-                signUpBinding.edtReEnterPassword.setError("Required");
-                valid = false;
-            } else {
-                signUpBinding.edtReEnterPassword.setError(null);
-            }
+        String dataOfEdittext = editText.getText().toString();
+        if (TextUtils.isEmpty(dataOfEdittext)) {
+            editText.setError("Required");
+            valid = false;
+        } else {
+            editText.setError(null);
+        }
         return valid;
     }
 

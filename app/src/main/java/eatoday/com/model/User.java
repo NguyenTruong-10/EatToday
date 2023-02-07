@@ -1,19 +1,52 @@
 package eatoday.com.model;
 
-public class User {
-    private String userName;
-    private int idUser;
-    private String password;
-    private String email;
 
-    public User(){
+import java.util.HashMap;
+import java.util.Map;
+
+public class User {
+    private String firstName;
+    private String lastName;
+    private String userName;
+    private String email;
+    private Birthdate birthdate;
+
+    public User() {
 
     }
-    public User(String userName, int idUser, String password, String email) {
+
+    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userName = userName;
-        this.idUser = idUser;
-        this.password = password;
         this.email = email;
+        this.birthdate = birthdate;
+    }
+
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> user = new HashMap<>();
+//        user.put("firstName", firstName);
+//        user.put("lastName", lastName);
+//        user.put("userName", userName);
+//        user.put("email", email);
+//        user.put("birthdate", birthdate);
+//        return user;
+//    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserName() {
@@ -24,27 +57,15 @@ public class User {
         this.userName = userName;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Birthdate getBirthdate() {
+        return birthdate;
     }
 }
