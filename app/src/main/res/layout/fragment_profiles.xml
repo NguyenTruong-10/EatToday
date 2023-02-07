@@ -47,14 +47,15 @@
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/font_outfit_bold"
                     android:text="Person"
+                    android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="24dp" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="210dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/ic_logo_app"
 
                     />

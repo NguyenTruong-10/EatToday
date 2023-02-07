@@ -7,7 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +79,29 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        loginBinding.edtPasswordInfo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (loginBinding.edtPasswordInfo.length() != 0) {
+                    loginBinding.textInputLayout
+                            .setEndIconMode(loginBinding.textInputLayout.END_ICON_PASSWORD_TOGGLE);
+                } else {
+                    loginBinding.textInputLayout
+                            .setEndIconMode(loginBinding.textInputLayout.END_ICON_NONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -138,6 +163,7 @@ public class LoginFragment extends Fragment {
         boolean valid = true;
 
         String email = loginBinding.edtEmailInfo.getText().toString();
+
         if (TextUtils.isEmpty(email)) {
             loginBinding.edtEmailInfo.setError("Required");
             valid = false;

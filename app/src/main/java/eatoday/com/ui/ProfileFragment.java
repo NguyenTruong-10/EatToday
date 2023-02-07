@@ -49,6 +49,8 @@ public class ProfileFragment extends Fragment {
         void onLogOut();
 
         void onClickList();
+
+        void onClickChangePassword();
     }
 
     public void setCallback(Callback callback) {
@@ -90,6 +92,12 @@ public class ProfileFragment extends Fragment {
                         "Đăng xuất",
                         Toast.LENGTH_SHORT).show();
                 callback.onLogOut();
+            }
+        });
+
+        profilesBinding.btnChangepass.setOnClickListener(v -> {
+            if (callback != null) {
+                callback.onClickChangePassword();
             }
         });
         mAuth = FirebaseAuth.getInstance();

@@ -27,12 +27,14 @@ import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.ChangePasswordFragment;
 import eatoday.com.ui.Detail_Food_Fragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
 import eatoday.com.ui.MyPostFragment;
 import eatoday.com.ui.NotificationFragment;
 import eatoday.com.ui.ProfileFragment;
+import eatoday.com.ui.ReAuthenticateUserFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private AccountFragment accountFragment = new AccountFragment();
     private LoginFragment loginFragment = new LoginFragment();
     private SignUpFragment signUpFragment = new SignUpFragment();
+    private ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+    private ReAuthenticateUserFragment reAuthenticateUserFragment = new ReAuthenticateUserFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -93,13 +97,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLogOut() {
-                logOut();
-            }
+            public void onLogOut() { logOut(); }
 
             @Override
             public void onClickList() {
                 openMylistFragment();
+            }
+
+            @Override
+            public void onClickChangePassword() {
+                replaceFragment(reAuthenticateUserFragment);
             }
         });
         myPostFragment.setCallback(() -> replaceFragment(profileFragment));
@@ -132,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onConfirmUpdate() {
                 replaceFragment(profileFragment);
+            }
+        });
+
+        changePasswordFragment.setCallback(new ChangePasswordFragment.Callback() {
+            @Override
+            public void onConfirmChangePass() { replaceFragment(profileFragment); }
+        });
+        reAuthenticateUserFragment.setCallback(new ReAuthenticateUserFragment.Callback() {
+            @Override
+            public void onContinue() {
+                replaceFragment(changePasswordFragment);
             }
         });
     }
