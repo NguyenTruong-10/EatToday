@@ -37,9 +37,15 @@ import eatoday.com.model.Food;
 
 public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditViewholder> {
     private List<Food> mlist;
+    private IClickListener iClickListener;
+    public interface IClickListener{
+        void onClickDelete(Food food);
 
-    public EditFoodAdapter(List<Food> mlist) {
+    }
+    public EditFoodAdapter(List<Food> mlist, IClickListener listener) {
+
         this.mlist = mlist;
+        this.iClickListener = listener;
     }
 
     @NonNull
@@ -61,6 +67,7 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgEditFood);
+        holder.imgBtnDelete.setOnClickListener(v -> {iClickListener.onClickDelete(food);});
 
     }
 
@@ -82,84 +89,9 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
             nameEditFood = itemView.findViewById(R.id.tvFood);
             imgEditFood = itemView.findViewById(R.id.imgVFood);
             imgBtnDelete = itemView.findViewById(R.id.ic_delete);
-
         }
     }
 }
 
-//    public FoodAdapters(
-//            @NonNull FirebaseRecyclerOptions<Food> options)
-//    {
-//        super(options);
-//    }
-//
-//    @Override
-//    protected void onBindViewHolder(@NonNull foodViewholder holder, int position, @NonNull Food model) {
-//        holder.nameFood.setText(model.getNameFood());
-//        Glide.with(holder.imgFood.getContext())
-//                .load(model.getImageFood())
-//                .placeholder(R.drawable.ic_food_placeholder)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(holder.imgFood);
-//    }
-//
-//    @NonNull
-//    @Override
-//    public foodViewholder
-//    onCreateViewHolder(@NonNull ViewGroup parent,
-//                       int viewType)
-//    {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.list_item_category, parent, false);
-//        return new FoodAdapters.foodViewholder(view);
-//    }
-//    class foodViewholder extends RecyclerView.ViewHolder {
-//        TextView nameFood;
-//        ImageView imgFood;
-//        public foodViewholder(@NonNull View itemView)
-//        {
-//            super(itemView);
-//            nameFood = itemView.findViewById(R.id.tvCategory);
-//            imgFood = itemView.findViewById(R.id.imgCategory);
-//        }
-//
-//    }
-//}}
-//public class EditFoodAdapter extends FirebaseRecyclerAdapter<Food, EditFoodAdapter.editViewholder> {
-//
-//    public EditFoodAdapter(
-//            @NonNull FirebaseRecyclerOptions<Food> options)
-//    {
-//        super(options);
-//    }
-//
-//    @Override
-//    protected void onBindViewHolder(@NonNull editViewholder holder, int position, @NonNull Food food) {
-//        holder.nameEditFood.setText(food.getNameFood());
-//        Glide.with(holder.imgEditFood.getContext())
-//                .load(food.getImageFood())
-//                .placeholder(R.drawable.ic_food_placeholder)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(holder.imgEditFood);
-//    }
-//
-//    @NonNull
-//    @Override
-//    public editViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-//    {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_category, parent, false);
-//        return new EditFoodAdapter.editViewholder(view);
-//    }
-//    class editViewholder extends RecyclerView.ViewHolder {
-//        TextView nameEditFood;
-//        ImageView imgEditFood;
-//        public editViewholder(@NonNull View itemView)
-//        {
-//            super(itemView);
-//            nameEditFood = itemView.findViewById(R.id.tvFood);
-//            imgEditFood = itemView.findViewById(R.id.imgVFood);
-//
-//        }
-//
-//    }
+
 

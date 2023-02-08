@@ -6,18 +6,14 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -26,32 +22,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import eatoday.com.R;
@@ -124,11 +107,11 @@ public class MyPostFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        //databaseReference = firebaseDatabase.getReference("Food");
+        food = new Food();
         databaseReference = firebaseDatabase.getReference("Foods").child("datas").child(user).child(idfood);
+       // food.setIdfood(idfood);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        food = new Food();
         edt_Describle.setOnTouchListener((v1, event) -> {
             if (edt_Describle.hasFocus()) {
                 v1.getParent().requestDisallowInterceptTouchEvent(true);
@@ -174,7 +157,6 @@ public class MyPostFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-
             final Uri imageUri = data.getData();
             resultUri = imageUri;
             circleImageView.setImageURI(resultUri);
@@ -198,31 +180,33 @@ public class MyPostFragment extends Fragment {
         String ingredient = edt_Ingredient.getText().toString();
         String describle = edt_Describle.getText().toString();
         String link = edt_link.getText().toString();
+        String IdFood = idfood;
         if (!foodName.isEmpty() && !ingredient.isEmpty() && !describle.isEmpty() && !link.isEmpty()) {
             //Log.v(TAG, "index=" + image);
             //Toast.makeText(getActivity(), image + " " + namefoods + " " + ingredient + " " + describle + " " + link, Toast.LENGTH_SHORT).show();
             Food food = new Food();
+            food.setIdFood(IdFood);
             food.setFoodName(foodName);
             food.setIngredient(ingredient);
             food.setDescrible(describle);
             food.setLinkVideo(link);
-            // food.setFoodId(idfood);
             edt_namefood.setText("");
             edt_Ingredient.setText("");
             edt_Describle.setText("");
             edt_link.setText("");
             circleImageView.setImageResource(R.drawable.ic_food_placeholder);
-            addDatatoFirebase(foodName, ingredient, describle, link);
+            addDatatoFirebase(foodName, ingredient, describle, link,IdFood);
         } else {
             Toast.makeText(getActivity(), "Need to fill information!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link) {
+    private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link,String idFood) {
         DatabaseReference myRef = databaseReference;
         DatabaseReference mypost = FirebaseDatabase.getInstance().getReference("Foods").child("allData").child(idfood);
         if (mAuth.getCurrentUser() != null) {
             Map foodInfo = new HashMap();
+            foodInfo.put("idFood",idFood);
             foodInfo.put("foodName", namefood);
             foodInfo.put("ingredient", Ingredient);
             foodInfo.put("describle", Describle);
@@ -236,7 +220,7 @@ public class MyPostFragment extends Fragment {
     private void setToFireStorage(Uri imageUri) {
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
         Date date = new Date();
-        final String fileName = getRandomString(4) + format.format(date);
+        final String fileName = getRandomString(4) + format.format(date) + ".png";
         if (imageUri != null) {
             StorageReference str = storage.getReference();
             str.child("profileImage").child(fileName).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
@@ -246,6 +230,7 @@ public class MyPostFragment extends Fragment {
                     DatabaseReference mypost = firebaseDatabase.getReference("Foods").child("allData").child(idfood).child("foodImage");
                     mref.setValue(DownloadUri.toString());
                     mypost.setValue(DownloadUri.toString());
+                    Log.v(TAG, "index111111111=" + food.getIdFood());
                     Toast.makeText(getActivity(), "Data updated", LENGTH_SHORT).show();
                 }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "Error", LENGTH_SHORT).show());
             });

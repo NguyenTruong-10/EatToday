@@ -81,7 +81,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-
+                        android:text="Watch youtube"
                         android:textColor="#ffec2d2d"
                         android:textSize="12sp" />
 

@@ -2,13 +2,14 @@ package eatoday.com.ui;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,23 +19,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import eatoday.com.R;
 import eatoday.com.adapter.EditFoodAdapter;
-import eatoday.com.adapter.FoodAdapters;
 import eatoday.com.model.Food;
-import io.reactivex.rxjava3.annotations.NonNull;
 
 public class MyListFragment extends Fragment {
     private List<Food> mList;
@@ -62,13 +59,41 @@ public class MyListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rclist_edit);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList = new ArrayList<>();
-        editFoodAdapter = new EditFoodAdapter(mList);
+        editFoodAdapter = new EditFoodAdapter(mList, new EditFoodAdapter.IClickListener() {
+            @Override
+            public void onClickDelete(Food food) {
+                oncClickDelete(food);
+            }
+        });
         recyclerView.setAdapter(editFoodAdapter);
-        getListFoodFromRealtime();
         toolbar_all = view.findViewById(R.id.toolbar_detail_all);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar_all);
         toolbar_all.setNavigationOnClickListener(v -> onBackProfile());
+        getListFoodFromRealtime();
         return view;
+    }
+
+    private void oncClickDelete(Food food) {
+        new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))
+                .setMessage("Are you sure want delete?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                            DatabaseReference mDatabaseReference = FirebaseDatabase
+                                    .getInstance().
+                                    getReference("Foods").
+                                    child("datas").child(user);
+                            mDatabaseReference.child(String.valueOf(food.getIdFood())).removeValue((error, ref) -> {
+                                Log.v(TAG, "tesds=" + mDatabaseReference.child(String.valueOf(food.getIdFood())));
+                            });
+                            DatabaseReference allPost = FirebaseDatabase
+                                    .getInstance().
+                                    getReference("Foods").
+                                    child("allData");
+                            allPost.child(String.valueOf(food.getIdFood())).removeValue((error, ref) -> {
+                                Log.v(TAG, "tsssesds=" + allPost.child(String.valueOf(food.getIdFood())));
+                            });
+                        }
+
+                ).setNegativeButton("Cancel", null).show();
     }
 
     private void onBackProfile() {
@@ -81,14 +106,41 @@ public class MyListFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser().getUid();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("datas").child(user);
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Food food = snapshot.getValue(Food.class);
+                if (food != null) {
                     mList.add(food);
+                    editFoodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Food food = snapshot.getValue(Food.class);
+                if (food == null || mList == null || mList.isEmpty()) {
+                    Toast.makeText(getActivity(), "Delete not good", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                for (int i = 0; i < mList.size(); i++) {
+                    if (food.getIdFood() == mList.get(i).getIdFood()) {
+                        mList.remove(mList.get(i));
+                        Toast.makeText(getActivity(), "Delete success", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                 }
                 editFoodAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override

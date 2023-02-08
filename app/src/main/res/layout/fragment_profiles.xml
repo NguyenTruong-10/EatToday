@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif"
-                android:text="Null"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textFontWeight="500"
@@ -124,7 +123,7 @@
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="12dp"
                     android:paddingStart="17dp"
-                    android:text="Update user info"
+                    android:text="Your information"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textSize="15dp" />

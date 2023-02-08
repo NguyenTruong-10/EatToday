@@ -1,7 +1,5 @@
 package eatoday.com.model;
 
-import android.net.Uri;
-
 public class Food {
     //    private String FoodId;
     private String foodName;
@@ -9,17 +7,25 @@ public class Food {
     private String describle;
     private String foodImage;
     private String ingredient;
+    private String idFood;
 
     public Food() {
     }
 
-    public Food(String foodName, String ingredient, String linkVideo, String describle, String foodImage) {
-        //   this.FoodId = FoodId;
+    public Food(String foodName, String ingredient, String linkVideo, String describle, String foodImage,String idFood) {
         this.foodName = foodName;
         this.linkVideo = linkVideo;
         this.describle = describle;
         this.ingredient = ingredient;
         this.foodImage = foodImage;
+        this.idFood = idFood;
+    }
+    public String getIdFood() {
+        return idFood;
+    }
+
+    public void setIdFood(String idFood) {
+        this.idFood = idFood;
     }
 
     public String getFoodName() {
