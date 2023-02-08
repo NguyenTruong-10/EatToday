@@ -44,6 +44,7 @@ public class ReAuthenticateUserFragment extends Fragment {
 
     public interface Callback{
         void onContinue();
+        void onForgotPasswordClicked();
     }
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -88,8 +89,12 @@ public class ReAuthenticateUserFragment extends Fragment {
             }
         });
 
-        reAuthenticateUserBinding.btnContinue.setOnClickListener(v -> {
-            onContinueClicked();
+        reAuthenticateUserBinding.btnContinue.setOnClickListener(v -> onContinueClicked());
+
+        reAuthenticateUserBinding.tvForgotPassword.setOnClickListener(v -> {
+            if (callback != null) {
+                callback.onForgotPasswordClicked();
+            }
         });
 
         //initialize

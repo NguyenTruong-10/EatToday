@@ -27,8 +27,10 @@ import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.AccountRecoveryFragment;
 import eatoday.com.ui.ChangePasswordFragment;
 import eatoday.com.ui.Detail_Food_Fragment;
+import eatoday.com.ui.EmailVerificationFragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
 import eatoday.com.ui.MyPostFragment;
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private SignUpFragment signUpFragment = new SignUpFragment();
     private ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
     private ReAuthenticateUserFragment reAuthenticateUserFragment = new ReAuthenticateUserFragment();
+    private AccountRecoveryFragment accountRecoveryFragment = new AccountRecoveryFragment();
+    private EmailVerificationFragment verificationFragment = new EmailVerificationFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -108,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClickChangePassword() {
                 replaceFragment(reAuthenticateUserFragment);
             }
+
+            @Override
+            public void onClickEmailVerify() {
+                replaceFragment(verificationFragment);
+            }
         });
         myPostFragment.setCallback(() -> replaceFragment(profileFragment));
         loginFragment.setCallback(new LoginFragment.Callback() {
@@ -150,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onContinue() {
                 replaceFragment(changePasswordFragment);
+            }
+
+            @Override
+            public void onForgotPasswordClicked() {
+                replaceFragment(accountRecoveryFragment);
             }
         });
     }
