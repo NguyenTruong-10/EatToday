@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentLoginBinding;
@@ -36,6 +37,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Callback callback;
     private FragmentLoginBinding loginBinding;
+    private FirebaseUser user;
 
     public interface Callback {
         void onSignIn();
@@ -105,6 +107,7 @@ public class LoginFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
     }
 
     public void replaceFragment(Fragment fragment) {

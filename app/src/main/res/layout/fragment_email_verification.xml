@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:navigationIcon="@drawable/ic_back">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/font_outfit_bold"
+                        android:text="Email Verification"
+                        android:textColor="@color/black"
+                        android:textSize="24dp" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="55dp"
+                        android:src="@drawable/ic_logo_app"
+
+                        />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_radius_bottom_corner"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/google_sans_regular"
+                android:text="Xác thực email"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="20dp" />
+
+<!--Start Not verified-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:orientation="vertical"
+                android:paddingBottom="30dp"
+                android:id="@+id/group_not_verified">
+
+                <!-- Tuy nhiên trước đó hãy xác thực email của bạn nhé.-->
+                <TextView
+                    android:id="@+id/tv_not_verified"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="40dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Chào Tên, chúc mừng bạn chính thức có tài khoản ở Eatoday nha."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_sub_not_verified"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Trước khi bắt đầu, hãy xác thực email của bạn nhé."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="15dp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_ava_not_verified"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/email_not_erifi" />
+
+                <TextView
+                    android:id="@+id/note_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@drawable/custom_text_view"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:paddingLeft="20dp"
+                    android:text="Click nút ở bên dưới để nhận email xác thực về tài khoản của bạn"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/btn_sentEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/bg_button"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Gửi email xác thực"
+                    android:textAllCaps="false"
+                    android:textFontWeight="500"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/btn_reload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_button"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Reload"
+                    android:textAllCaps="false"
+                    android:textFontWeight="500"
+                    android:textSize="18dp" />
+            </LinearLayout>
+<!--End Not Verified-->
+
+<!--Start Success Verified-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingBottom="30dp"
+                android:id="@+id/group_verified_success">
+
+                <TextView
+                    android:id="@+id/tv_verified_success"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="55dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="Chúc mừng 🥳, email của bạn đã được xác thực"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="16dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_ava_success_verified"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/email_verification" />
+
+                <TextView
+                    android:id="@+id/notify_success"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@drawable/custom_text_view"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:paddingLeft="20dp"
+                    android:text="Cảm ơn sự vì giúp đỡ to lớn, giờ bạn có thể quay trở lại trang chủ"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="16dp" />
+            </LinearLayout>
+<!--Start Success Verified-->
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

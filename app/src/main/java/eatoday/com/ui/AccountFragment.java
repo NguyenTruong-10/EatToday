@@ -185,7 +185,7 @@ public class AccountFragment extends Fragment {
             accountBinding.edtYearBirthdate.setText(String.valueOf(user.getBirthdate().getYear()));
         } else {
             Toast.makeText(getContext(),
-                    "User = null, request fix userEventListener",
+                    "User = null, request fix userEventListener: this is from Account Fragement",
                     Toast.LENGTH_SHORT).show();
         }
     }

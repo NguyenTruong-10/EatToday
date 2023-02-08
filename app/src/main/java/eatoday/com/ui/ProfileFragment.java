@@ -51,6 +51,8 @@ public class ProfileFragment extends Fragment {
         void onClickList();
 
         void onClickChangePassword();
+
+        void onClickEmailVerify();
     }
 
     public void setCallback(Callback callback) {
@@ -98,6 +100,12 @@ public class ProfileFragment extends Fragment {
         profilesBinding.btnChangepass.setOnClickListener(v -> {
             if (callback != null) {
                 callback.onClickChangePassword();
+            }
+        });
+
+        profilesBinding.btnEmailVerification.setOnClickListener(v -> {
+            if (callback != null) {
+                callback.onClickEmailVerify();
             }
         });
         mAuth = FirebaseAuth.getInstance();
