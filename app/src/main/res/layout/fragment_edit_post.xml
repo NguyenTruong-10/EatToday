@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <FrameLayout
+        android:id="@+id/fragment_my_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_anchor="@+id/fragment_my_post"
+        app:layout_anchorGravity="center">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_back_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:navigationIcon="@drawable/ic_back">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/font_outfit_bold"
+                        android:text="Edit my post"
+                        android:textColor="@color/black"
+                        android:textSize="24dp" />
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageEditFood"
+                    android:layout_width="210dp"
+                    android:layout_height="210dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:elevation="5dp"
+                    android:src="@drawable/ic_food_placeholder"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="2dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_post"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="1">
+
+                        <TableRow android:gravity="center_horizontal">
+
+                            <TextView
+                                android:fontFamily="@font/font_outfit_bold"
+                                android:text="Create my post"
+                                android:textColor="#6D6A6A"
+                                android:textFontWeight="100"
+                                android:textSize="24dp" />
+                        </TableRow>
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:stretchColumns="1">
+
+                            <TextView
+                                android:fontFamily="@font/font_outfit_bold"
+                                android:text="Food Name"
+                                android:textColor="#6D6A6A"
+                                android:textFontWeight="100"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/edtEditNameFood"
+                                android:layout_width="9dp"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/custom_input"
+                                android:hint="Name product"
+                                android:imeOptions="actionDone" />
+
+                            <TextView
+                                android:fontFamily="@font/font_outfit_bold"
+                                android:text="Ingredient"
+                                android:textColor="#6D6A6A"
+                                android:textFontWeight="100"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/edtEditIngredient"
+                                android:layout_width="300dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/custom_input"
+                                android:hint="Ingredient..."
+                                android:inputType="textMultiLine"
+                                android:overScrollMode="always"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical" />
+
+                            <TextView
+                                android:fontFamily="@font/font_outfit_bold"
+                                android:text="Describle"
+                                android:textColor="#6D6A6A"
+                                android:textFontWeight="100"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/edtEditDescrible"
+                                android:layout_width="300dp"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginEnd="2dp"
+                                android:background="@drawable/custom_input"
+                                android:hint="Describle..."
+                                android:inputType="textMultiLine"
+                                android:overScrollMode="always"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical" />
+
+                            <TextView
+                                android:fontFamily="@font/font_outfit_bold"
+                                android:text="Link video"
+                                android:textColor="#6D6A6A"
+                                android:textFontWeight="100"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/edtEditLinkVideo"
+                                android:layout_width="328dp"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:background="@drawable/custom_input"
+                                android:drawableRight="@drawable/ic_link"
+                                android:hint="Link video" />
+                        </TableLayout>
+                    </TableLayout>
+
+                    <Button
+                        android:id="@+id/btnEdit"
+                        android:layout_width="98dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/bg_button"
+                        android:fontFamily="@font/font_outfit_bold"
+                        android:text="Update"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

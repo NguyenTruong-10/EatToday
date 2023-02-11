@@ -34,6 +34,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eatoday.com.R;
 import eatoday.com.model.Food;
+import eatoday.com.ui.Detail_Food_Fragment;
+import eatoday.com.ui.EditPostFragment;
 
 public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditViewholder> {
     private List<Food> mlist;
@@ -67,7 +69,19 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgEditFood);
-        holder.imgBtnDelete.setOnClickListener(v -> {iClickListener.onClickDelete(food);});
+        holder.imgBtnDelete.setOnClickListener(v -> iClickListener.onClickDelete(food));
+        holder.imgEditFood.setOnClickListener(view -> {
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout,
+                            new Detail_Food_Fragment(food.getFoodName(), food.getDescrible(), food.getIngredient(), food.getLinkVideo(), food.getFoodImage())).addToBackStack(null).commit();
+        });
+        holder.imgBtnEdit.setOnClickListener(view -> {
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout,
+                            new EditPostFragment(food.getIdFood(),food.getFoodName(), food.getDescrible(), food.getIngredient(), food.getLinkVideo(), food.getFoodImage())).addToBackStack(null).commit();
+        });
 
     }
 
@@ -83,12 +97,14 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
         private TextView nameEditFood;
         private ImageView imgEditFood;
         private ImageButton imgBtnDelete;
+        private ImageButton imgBtnEdit;
 
         public EditViewholder(@NonNull View itemView) {
             super(itemView);
             nameEditFood = itemView.findViewById(R.id.tvFood);
             imgEditFood = itemView.findViewById(R.id.imgVFood);
             imgBtnDelete = itemView.findViewById(R.id.ic_delete);
+            imgBtnEdit = itemView.findViewById(R.id.ic_edit);
         }
     }
 }

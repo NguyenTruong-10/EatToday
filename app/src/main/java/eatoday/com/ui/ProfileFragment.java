@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -161,5 +162,9 @@ public class ProfileFragment extends Fragment {
                     "User = null, request fix userEventListener",
                     Toast.LENGTH_SHORT).show();
         }
+        Glide.with(getContext())
+                .load(user.getAvatar())
+                .circleCrop()
+                .into(profilesBinding.imgAvaProflie);
     }
 }

@@ -86,13 +86,14 @@ public class Detail_Food_Fragment extends Fragment {
         desholder.setText(desFood);
         inglholder.setText(ingre);
         linkVideoholder.setText(linkVideo);
-        a = linkVideoholder.getText().toString();
+        linkVideoholder.setText("Watch YouTube");
+//        a = linkVideoholder.getText().toString();
         Glide.with(getContext()).load(imgFood).into(imageholder);
         toolbar = view.findViewById(R.id.toolbar_detail_a);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         Log.v(TAG, "YOUTUEBNEEEEE=" + a);
-        linkVideoholder.setOnClickListener(v -> openWebPage(a));
+        linkVideoholder.setOnClickListener(v -> openWebPage(linkVideo));
         return view;
         // View view=inflater.inflate(R.layout.fragment_detail__food, container, false);
     }

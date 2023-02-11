@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import javax.security.auth.callback.Callback;
+
 import eatoday.com.databinding.FragmentEmailVerificationBinding;
 import eatoday.com.model.User;
 
@@ -32,8 +34,16 @@ public class EmailVerificationFragment extends Fragment {
     private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
     private String userId;
+    private Callback callback;
 
     private static final String EMAIL_VERIFICATION = "Email verification";
+    public interface Callback {
+        void onBack();
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +58,15 @@ public class EmailVerificationFragment extends Fragment {
                 .inflate(inflater, container, false);
         return verificationBinding.getRoot();
     }
-
+    private void onBackPressed() {
+        if (callback != null) {
+            callback.onBack();
+        }
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        verificationBinding.tbBackPro.setNavigationOnClickListener(v -> onBackPressed());
         verificationBinding.btnSentEmail.setOnClickListener(v -> {
             sendEmailVerification();
         });

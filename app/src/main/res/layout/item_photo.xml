@@ -9,5 +9,6 @@
         android:layout_width="190dp"
         android:layout_height="210dp"
         android:scaleType="centerCrop"
+
         />
 </LinearLayout>

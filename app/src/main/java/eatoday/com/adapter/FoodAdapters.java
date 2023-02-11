@@ -37,7 +37,6 @@ import eatoday.com.ui.Detail_Food_Fragment;
 
 public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewholder> {
     private List<Food> mlist;
-
     public FoodAdapters(List<Food> mlist) {
         this.mlist = mlist;
     }

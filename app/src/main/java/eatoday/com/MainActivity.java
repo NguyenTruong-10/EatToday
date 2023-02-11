@@ -30,6 +30,7 @@ import eatoday.com.ui.AccountFragment;
 import eatoday.com.ui.AccountRecoveryFragment;
 import eatoday.com.ui.ChangePasswordFragment;
 import eatoday.com.ui.Detail_Food_Fragment;
+import eatoday.com.ui.EditPostFragment;
 import eatoday.com.ui.EmailVerificationFragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ReAuthenticateUserFragment reAuthenticateUserFragment = new ReAuthenticateUserFragment();
     private AccountRecoveryFragment accountRecoveryFragment = new AccountRecoveryFragment();
     private EmailVerificationFragment verificationFragment = new EmailVerificationFragment();
+    private EditPostFragment editPostFragment = new EditPostFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -149,13 +151,25 @@ public class MainActivity extends AppCompatActivity {
             public void onConfirmUpdate() {
                 replaceFragment(profileFragment);
             }
+
+            @Override
+            public void onBack() {
+                replaceFragment(profileFragment);
+            }
         });
 
         changePasswordFragment.setCallback(new ChangePasswordFragment.Callback() {
             @Override
             public void onConfirmChangePass() { replaceFragment(profileFragment); }
+
+
         });
         reAuthenticateUserFragment.setCallback(new ReAuthenticateUserFragment.Callback() {
+            @Override
+            public void onBack() {
+                replaceFragment(profileFragment);
+            }
+
             @Override
             public void onContinue() {
                 replaceFragment(changePasswordFragment);
@@ -166,16 +180,9 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(accountRecoveryFragment);
             }
         });
+        verificationFragment.setCallback(() -> replaceFragment(profileFragment));
+        editPostFragment.setCallback(() ->replaceFragment(myListFragment) );
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            reload();
-//        }
-//    }
 
     private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {

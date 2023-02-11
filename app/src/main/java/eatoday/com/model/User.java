@@ -11,28 +11,28 @@ public class User {
     private String email;
     private Birthdate birthdate;
 
+    private String avatar;
+
     public User() {
 
     }
 
-    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate) {
+    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate, String avatar) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
         this.birthdate = birthdate;
+        this.avatar = avatar;
     }
 
-//    public Map<String, Object> toMap() {
-//        HashMap<String, Object> user = new HashMap<>();
-//        user.put("firstName", firstName);
-//        user.put("lastName", lastName);
-//        user.put("userName", userName);
-//        user.put("email", email);
-//        user.put("birthdate", birthdate);
-//        return user;
-//    }
+public String getAvatar() {
+    return avatar;
+}
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
     public String getFirstName() {
         return firstName;
     }

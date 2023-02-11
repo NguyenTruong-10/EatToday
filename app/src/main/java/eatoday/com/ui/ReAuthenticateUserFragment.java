@@ -43,6 +43,7 @@ public class ReAuthenticateUserFragment extends Fragment {
     private ValueEventListener eventListener;
 
     public interface Callback{
+        void onBack();
         void onContinue();
         void onForgotPasswordClicked();
     }
@@ -63,10 +64,15 @@ public class ReAuthenticateUserFragment extends Fragment {
                 .inflate(inflater, container, false);
         return reAuthenticateUserBinding.getRoot();
     }
-
+    private void onBackPressed() {
+        if (callback != null) {
+            callback.onBack();
+        }
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        reAuthenticateUserBinding.tbBackPro.setNavigationOnClickListener(v -> onBackPressed());
         reAuthenticateUserBinding.edtPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

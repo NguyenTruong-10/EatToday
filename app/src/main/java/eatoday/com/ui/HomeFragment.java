@@ -18,8 +18,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -136,14 +139,14 @@ public class HomeFragment extends Fragment {
     private List<Photo> getListPhoto(){
         List<Photo> list = new ArrayList<>();
         list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
-        list.add(new Photo(R.drawable.img_chef_1));
+        list.add(new Photo(R.drawable.img_chef_2));
+        list.add(new Photo(R.drawable.img_chef_3));
+        list.add(new Photo(R.drawable.img_chef_4));
+        list.add(new Photo(R.drawable.img_chef_5));
+        list.add(new Photo(R.drawable.img_chef_6));
+        list.add(new Photo(R.drawable.img_chef_7));
+        list.add(new Photo(R.drawable.img_chef_8));
+        list.add(new Photo(R.drawable.img_chef_9));
         return list;
     }
 
@@ -167,10 +170,36 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-//    @Override
-//    protected void onPaused(){
-//        super.onPause();
-//        mhandler.removeCallbacks(runnable);
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuItem item = menu.findItem(R.id.search_bar);
+//        SearchView searchView = (SearchView) item.getActionView();
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String newText) {
+//                mysearch(newText);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                mysearch(newText);
+//                return false;
+//            }
+//        });
+//
+//        return super.onCreateOptionsMenu(menu);
 //    }
-//    protected
+//
+//    private void mysearch(String str) {
+//
+//        FirebaseRecyclerOptions<FoodAdapters> options =
+//                new FirebaseRecyclerOptions.Builder<FoodAdapters>()
+//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Students").orderByChild("course").startAt(str).endAt(str+"\uf8ff"),MainModel.class)
+//                        .build();
+//
+//        foodAdapters = new FoodAdapters(options);
+//        mainAdapter.startListening();
+//        recyclerView.setAdapter(mainAdapter);
+//    }
 }
