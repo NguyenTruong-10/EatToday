@@ -167,7 +167,6 @@ public class EditPostFragment extends Fragment {
         String link = edt_edt_link.getText().toString();
        // String IdFood = idfood;
         if (!foodName.isEmpty() && !ingredient.isEmpty() && !describle.isEmpty() && !link.isEmpty()) {
-            //Log.v(TAG, "index=" + image);
             //Toast.makeText(getActivity(), image + " " + namefoods + " " + ingredient + " " + describle + " " + link, Toast.LENGTH_SHORT).show();
             Food food = new Food();
             //food.setIdFood(IdFood);
@@ -175,11 +174,6 @@ public class EditPostFragment extends Fragment {
             food.setIngredient(ingredient);
             food.setDescrible(describle);
             food.setLinkVideo(link);
-//            edt_namefood.setText("");
-//            edt_Ingredient.setText("");
-//            edt_Describle.setText("");
-//            edt_link.setText("");
-//            circleImageView.setImageResource(R.drawable.ic_food_placeholder);
             updateToFiresBase(foodName, ingredient, describle, link);
         } else {
             Toast.makeText(getActivity(), "Need to fill information!", Toast.LENGTH_SHORT).show();

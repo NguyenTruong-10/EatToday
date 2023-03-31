@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -170,7 +171,8 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-//    public boolean onCreateOptionsMenu(Menu menu) {
+
+//    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
 //        MenuItem item = menu.findItem(R.id.search_bar);
 //        SearchView searchView = (SearchView) item.getActionView();
 //

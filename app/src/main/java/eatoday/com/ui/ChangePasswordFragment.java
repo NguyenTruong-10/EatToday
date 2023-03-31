@@ -103,9 +103,15 @@ public class ChangePasswordFragment extends Fragment {
         changePasswordBinding.btnConfirmChange.setOnClickListener(v -> {
             onConfirmPassClicked();
         });
+        changePasswordBinding.tbBackPro.setNavigationOnClickListener(v -> onBackProfile());
         //initialize
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+    }
+    private void onBackProfile() {
+        if (callback != null) {
+            callback.onConfirmChangePass();
+        }
     }
 
     private void onConfirmPassClicked() {

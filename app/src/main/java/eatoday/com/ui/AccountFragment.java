@@ -256,10 +256,6 @@ public class AccountFragment extends Fragment {
                     .load(user.getAvatar())
                     .circleCrop()
                     .into(circle_ava);
-        } else {
-            Toast.makeText(getContext(),
-                    "User = null, request fix userEventListener: this is from Account Fragement",
-                    Toast.LENGTH_SHORT).show();
         }
     }
 }

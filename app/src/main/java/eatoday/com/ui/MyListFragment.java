@@ -59,12 +59,7 @@ public class MyListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rclist_edit);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList = new ArrayList<>();
-        editFoodAdapter = new EditFoodAdapter(mList, new EditFoodAdapter.IClickListener() {
-            @Override
-            public void onClickDelete(Food food) {
-                oncClickDelete(food);
-            }
-        });
+        editFoodAdapter = new EditFoodAdapter(mList, food -> oncClickDelete(food));
         recyclerView.setAdapter(editFoodAdapter);
         toolbar_all = view.findViewById(R.id.toolbar_detail_all);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar_all);
@@ -72,7 +67,6 @@ public class MyListFragment extends Fragment {
         getListFoodFromRealtime();
         return view;
     }
-
     private void oncClickDelete(Food food) {
         new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))
                 .setMessage("Are you sure want delete?")

@@ -91,9 +91,6 @@ public class ProfileFragment extends Fragment {
         profilesBinding.btnLogout.setOnClickListener(v -> {
             if (callback != null) {
                 mAuth.signOut();
-                Toast.makeText(getContext(),
-                        "Đăng xuất",
-                        Toast.LENGTH_SHORT).show();
                 callback.onLogOut();
             }
         });
@@ -157,10 +154,6 @@ public class ProfileFragment extends Fragment {
         if (user != null) {
             profilesBinding.txtName.
                     setText(user.getLastName() + " " + user.getFirstName());
-        } else {
-            Toast.makeText(getContext(),
-                    "User = null, request fix userEventListener",
-                    Toast.LENGTH_SHORT).show();
         }
         Glide.with(getContext())
                 .load(user.getAvatar())

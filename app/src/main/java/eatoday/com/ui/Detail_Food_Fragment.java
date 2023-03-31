@@ -5,6 +5,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -37,6 +38,7 @@ public class Detail_Food_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    boolean check = true;
     String nameFood, desFood, ingre, linkVideo, imgFood, a;
     Food food;
     private Toolbar toolbar;
@@ -77,6 +79,7 @@ public class Detail_Food_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail__food, container, false);
+        ImageView imglike = view.findViewById(R.id.imgFavorite);
         ImageView imageholder = view.findViewById(R.id.imgThumb);
         TextView nameholder = view.findViewById(R.id.tvTitle);
         TextView desholder = view.findViewById(R.id.tvInstructions);
@@ -94,9 +97,21 @@ public class Detail_Food_Fragment extends Fragment {
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         Log.v(TAG, "YOUTUEBNEEEEE=" + a);
         linkVideoholder.setOnClickListener(v -> openWebPage(linkVideo));
+        imglike.setOnClickListener(v -> {
+            if (check == false){
+                imglike.setColorFilter(Color.parseColor("#ff0303"));
+            check = true;
+            }
+            else if (check == true) {
+                imglike.setColorFilter(Color.parseColor("#FFFFFF"));
+                check = false;
+            }
+        });
+
         return view;
         // View view=inflater.inflate(R.layout.fragment_detail__food, container, false);
     }
+
 
     public void openWebPage(String url) {
         Uri uriUrl = Uri.parse(url);

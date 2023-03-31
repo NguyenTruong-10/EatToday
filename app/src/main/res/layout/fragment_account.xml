@@ -77,7 +77,6 @@
                     android:id="@+id/img_avatar"
                     android:layout_width="168dp"
                     android:layout_height="168dp"
-
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"

@@ -6,6 +6,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eatoday.com.R;
 import eatoday.com.model.Food;
+import io.reactivex.rxjava3.annotations.NonNull;
 
 public class MyPostFragment extends Fragment {
     private final int PICK_IMAGE_REQUEST = 22;
@@ -84,19 +86,29 @@ public class MyPostFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        edt_Ingredient = view.findViewById(R.id.txtIngredient);
+        edt_namefood = view.findViewById(R.id.txtNameFood);
+
         view.setOnClickListener(v -> {
-            edt_Ingredient.clearFocus();
+            edt_namefood.clearFocus();
             InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
     }
 
+    public void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
+                .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.hideSoftInputFromWindow(
+                getActivity().getCurrentFocus()
+                        .getWindowToken(), 0);
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_post, container, false);
+
         btnPost = view.findViewById(R.id.btnPost);
         edt_namefood = view.findViewById(R.id.txtNameFood);
         edt_Describle = view.findViewById(R.id.txtDescrible);
@@ -144,7 +156,7 @@ public class MyPostFragment extends Fragment {
             callback.onBack();
         }
     }
-
+//get image from gallery
     private void SelectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -164,7 +176,7 @@ public class MyPostFragment extends Fragment {
             Toast.makeText(getActivity(), "Please select file", LENGTH_SHORT).show();
         }
     }
-
+//random
     private static final String ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm";
 
     private static String getRandomString(final int sizeOfRandomString) {

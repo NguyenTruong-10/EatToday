@@ -181,7 +181,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         verificationFragment.setCallback(() -> replaceFragment(profileFragment));
-        editPostFragment.setCallback(() ->replaceFragment(myListFragment) );
+        editPostFragment.setCallback(new EditPostFragment.Callback(){
+
+            @Override
+            public void onBack() {
+                replaceFragment(myListFragment);
+            }
+        });
     }
 
     private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener

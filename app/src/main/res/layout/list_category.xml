@@ -6,7 +6,8 @@
     android:orientation="vertical"
     app:ignore="NamespaceTypo">
 
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,7 +65,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:layout_gravity=""
+                                >
 
                                 <ImageButton
                                     android:id="@+id/ic_edit"
@@ -82,6 +85,7 @@
                                     android:backgroundTint="#F6F4F4"
                                     android:src="@drawable/ic_delete" />
                             </LinearLayout>
+
 
                         </LinearLayout>
                     </LinearLayout>

@@ -135,7 +135,6 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(SIGN_IN_METHOD, "Authenticate with email and password successful");
                             Toast.makeText(getContext(), "Authentication success",
                                     Toast.LENGTH_SHORT).show();
                             if (callback != null) {
